@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private RoleDao roleDao;
 
     @Override
-    public void save(User user) {
+    public void saveOrUpdate(User user) {
         List<Long> roleIds = user.getRoleIds();
         List<Role> roleList = roleDao.findAll(roleIds);
         user.setRoles(roleList);
@@ -28,11 +28,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userDao.delete(id);
-    }
-
-    @Override
-    public void update(User user) {
-
     }
 
     @Override

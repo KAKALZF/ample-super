@@ -13,7 +13,7 @@ public class User {
     @ManyToMany
     public List<Role> roles;
     @Transient
-    public List<Long> RoleIds;
+    public List<Long> roleIds;
 
     public String getName() {
         return name;
@@ -52,11 +52,11 @@ public class User {
     }
 
     public List<Long> getRoleIds() {
-        return RoleIds;
+        return roleIds;
     }
 
     public User setRoleIds(List<Long> roleIds) {
-        RoleIds = roleIds;
+        this.roleIds = roleIds;
         return this;
     }
 

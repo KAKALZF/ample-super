@@ -35,9 +35,9 @@ public class PermissionImpl implements PermissionService, ApplicationContextAwar
                     //为什么该标签放到annotation包获取不到?
                     if (method.isAnnotationPresent(RequiredPermission.class)) {
                         RequiredPermission annotation = method.getAnnotation(RequiredPermission.class);
-                        String value = annotation.value();
-                        System.out.println(value);
-                        Permission permission = new Permission().setDes(beanName + ":" + value);
+                        Permission permission = new Permission()
+                                .setName(beanName + ":" + annotation.value())
+                                .setDes(annotation.des());
                         permissionDao.save(permission);
                     }
                 }
@@ -50,13 +50,9 @@ public class PermissionImpl implements PermissionService, ApplicationContextAwar
 
     @Override
     public void delete(Long id) {
-
+        permissionDao.delete(id);
     }
 
-    @Override
-    public void update(Permission perm) {
-
-    }
 
     @Override
     public List<Permission> findAll() {

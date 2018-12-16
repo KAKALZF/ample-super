@@ -3,10 +3,9 @@ package com.ample16.springcloud.consumer.controller;
 import com.ample16.springcloud.consumer.entity.Role;
 import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.RoleService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,24 +16,21 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/save")
-    public String save(Role role) {
-        roleService.save(role);
+    @ApiOperation("角色保存")
+    public String save(@RequestBody Role role) {
+        roleService.saveUpdate(role);
         return "success";
     }
 
-    @RequestMapping("/delete")
-    public String delete() {
-
-        return "";
+    @DeleteMapping("/delete")
+    @ApiOperation("角色删除")
+    public String delete(Long id) {
+        roleService.delete(id);
+        return "success";
     }
 
-
-    @RequestMapping("/update")
-    public String update(Role role) {
-        return "";
-    }
-
-    @RequestMapping("/findAll")
+    @GetMapping("/findAll")
+    @ApiOperation("角色列表")
     public List<Role> findAll() {
         return roleService.findAll();
     }

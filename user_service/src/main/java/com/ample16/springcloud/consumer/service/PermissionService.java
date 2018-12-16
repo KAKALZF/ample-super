@@ -10,7 +10,5 @@ public interface PermissionService {
 
     void delete(Long id);
 
-    void update(Permission perm);
-
     List<Permission> findAll();
 }

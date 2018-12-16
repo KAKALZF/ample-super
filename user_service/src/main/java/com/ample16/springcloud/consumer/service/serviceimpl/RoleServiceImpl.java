@@ -7,17 +7,20 @@ import com.ample16.springcloud.consumer.entity.Role;
 import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.RoleService;
 import com.ample16.springcloud.consumer.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
+    @Autowired
     private RoleDao roleDao;
+    @Autowired
     private PermissionDao permissionDao;
 
     @Override
-    public void save(Role role) {
+    public void saveUpdate(Role role) {
         List<Long> permissionIds = role.getPermissionIds();
         List<Permission> permissionList = permissionDao.findAll(permissionIds);
         role.setPermissions(permissionList);
@@ -29,10 +32,6 @@ public class RoleServiceImpl implements RoleService {
         roleDao.delete(id);
     }
 
-    @Override
-    public void update(Role role) {
-
-    }
 
     @Override
     public List<Role> findAll() {
