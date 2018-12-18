@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -22,6 +23,11 @@ public class PermissionImpl implements PermissionService, ApplicationContextAwar
 
     @Override
     public void save() {
+        List<Permission> permAll = permissionDao.findAll();
+        HashSet<String> permSet = new HashSet<>();
+        for (Permission perm : permAll) {
+            permSet.add(perm.getName());
+        }
         String[] beanNames = applicationContext.getBeanNamesForAnnotation(RestController.class);
         for (String beanName : beanNames) {
             //类名首字母大写
@@ -35,10 +41,13 @@ public class PermissionImpl implements PermissionService, ApplicationContextAwar
                     //为什么该标签放到annotation包获取不到?
                     if (method.isAnnotationPresent(RequiredPermission.class)) {
                         RequiredPermission annotation = method.getAnnotation(RequiredPermission.class);
-                        Permission permission = new Permission()
-                                .setName(beanName + ":" + annotation.value())
-                                .setDes(annotation.des());
-                        permissionDao.save(permission);
+                        String permName = beanName + ":" + annotation.value();
+                        if (!permSet.contains(permName)) {
+                            Permission permission = new Permission()
+                                    .setName(permName)
+                                    .setDes(annotation.des());
+                            permissionDao.save(permission);
+                        }
                     }
                 }
             } catch (ClassNotFoundException e) {

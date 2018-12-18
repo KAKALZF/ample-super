@@ -1,5 +1,6 @@
 package com.ample16.springcloud.consumer.controller;
 
+import com.ample16.springcloud.consumer.common.Response;
 import com.ample16.springcloud.consumer.entity.Permission;
 import com.ample16.springcloud.consumer.entity.Role;
 import com.ample16.springcloud.consumer.service.PermissionService;
@@ -20,22 +21,24 @@ public class PermissionController {
     @PostMapping("/save")
     @RequiredPermission(value = "loadPerm", des = "权限加载")
     @ApiOperation(value = "权限加载")
-    public String save() {
+    public Response save() {
         permissionService.save();
-        return "success";
+        return Response.successResposne();
     }
 
     @DeleteMapping("/delete")
     @ApiOperation(value = "权限删除")
-    public String delete(Long id) {
+    @RequiredPermission(value = "delete", des = "权限删除")
+    public Response delete(Long id) {
         permissionService.delete(id);
-        return "success";
+        return Response.successResposne();
     }
 
     @GetMapping("/findAll")
     @RequiredPermission(value = "findAll", des = "查询所有权限")
     @ApiOperation(value = "权限列表")
-    public List<Permission> findAll() {
-        return permissionService.findAll();
+    public Response<List<Permission>> findAll() {
+
+        return Response.successResposne().setData(permissionService.findAll());
     }
 }
