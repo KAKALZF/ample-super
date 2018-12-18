@@ -1,5 +1,6 @@
 package com.ample16.springcloud.consumer.controller;
 
+import com.ample16.springcloud.consumer.common.LoginReq;
 import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.LoginService;
 import org.apache.shiro.SecurityUtils;
@@ -25,12 +26,12 @@ public class LoginController {
 
     //post登录
     @PostMapping(value = "/login")
-    public String login(@RequestBody User user) {
+    public String login(@RequestBody LoginReq req) {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
-                user.getName(),
-                user.getPassword());
+                req.getName(),
+                req.getPassword());
         //进行验证，这里可以捕获异常，然后返回对应信息
         subject.login(usernamePasswordToken);
         return "login success";

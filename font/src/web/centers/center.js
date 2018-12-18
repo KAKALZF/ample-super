@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 
 const router = new VRouter({
     routes: [
-        {path: '*', redirect: '/login'},
+   /*     {path: '*', redirect: '/login'},*/
         {name: 'login', path: '/login', component: login},
     ],
 });
@@ -24,10 +24,10 @@ axios.interceptors.response.use(
     res => {
         window.mytips = mytips;
         if (res.data.code == 405) {
-            window.location.href = "/index.html"
+            window.location.href = "/login.html"
         } else if (res.data.code > 0) {
             console.log("返回的响应code>0");
-            // window.location.href="/index.html";
+            // window.location.href="/login.html";
             window.location.href = "/center.html#/cardList";
         } else if (res.data.code < 0) {
             console.log("返回的响应code<0")
@@ -79,7 +79,7 @@ var app = new Vue({
                 console.log("点击子菜单", command);
                 this.$router.push("/index");
             } else if (command == 'logout') {
-                window.location.href = "/index.html";
+                window.location.href = "/login.html";
             } else if (command == 'realName') {
                 this.$router.push("/basic")
             }

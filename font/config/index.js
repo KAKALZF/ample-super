@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://39.108.239.32:8081/',
+        target: 'http://127.0.0.1:8083/',
         changeOrigin: true,
         pathRewrite: {
           '^/api' : ''
@@ -45,8 +45,8 @@ module.exports = {
   },
 
   build: {
-    // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    // Template for login.html
+    index: path.resolve(__dirname, '../dist/login.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
