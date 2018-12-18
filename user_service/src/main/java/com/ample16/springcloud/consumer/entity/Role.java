@@ -7,9 +7,9 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue
-    public Long id;
-    public String name;
-    public String des;
+    private Long id;
+    private String name;
+    private String des;
     @ManyToMany
     public List<Permission> permissions;
     @Transient

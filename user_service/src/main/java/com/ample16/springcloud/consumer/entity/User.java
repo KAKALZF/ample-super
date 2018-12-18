@@ -7,9 +7,9 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue
-    public Long id;
-    public String name;
-    public String password;
+    private Long id;
+    private String name;
+    private String password;
     @ManyToMany
     public List<Role> roles;
     @Transient

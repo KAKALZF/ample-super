@@ -6,6 +6,8 @@ import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.UserService;
 import com.ample16.springcloud.consumer.service.serviceimpl.RequiredPermission;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ public class UserController {
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "用户保存或更新")
     @RequiredPermission(value = "saveOrUpdate", des = "用户保存或更新")
+    @RequiresRoles("admin")
+    @RequiresPermissions("create")
     public Response saveOrUpdate(@RequestBody User user) {
         userService.saveOrUpdate(user);
         return Response.successResposne();
