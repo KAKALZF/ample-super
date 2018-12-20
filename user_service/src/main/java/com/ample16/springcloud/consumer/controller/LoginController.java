@@ -39,7 +39,7 @@ public class LoginController {
 
     @GetMapping(value = "/index")
     public String index() {
-        return "index";
+        return "登录成功";
     }
 
     //登出
@@ -56,18 +56,12 @@ public class LoginController {
     //错误页面展示
     @RequestMapping(value = "/error", method = RequestMethod.POST)
     public String error() {
-        return "error page!";
+        return "用户未授权!";
     }
 
 
-    @GetMapping(value = "/create")
-    public String create() {
-
-        return "Create success!";
-    }
 
     //注解的使用
-
     @GetMapping(value = "/sessionTime")
     public String sessionTime() {
         Subject subject = SecurityUtils.getSubject();
