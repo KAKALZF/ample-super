@@ -20,11 +20,6 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    //未登陆就访问的页面
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "please login first";
-    }
 
     //post登录
     @PostMapping(value = "/login")
@@ -39,20 +34,16 @@ public class LoginController {
         try {
             subject.login(usernamePasswordToken);
         } catch (UnknownAccountException e) {
-            throw new ApplicationException("用户名/密码错误");
+            throw new ApplicationException("用户名/密码错误", e);
         } catch (IncorrectCredentialsException e) {
-            throw new ApplicationException("用户名/密码错误");
+            throw new ApplicationException("用户名/密码错误", e);
         } catch (AuthenticationException e) {
             //其他错误，比如锁定，如果想单独处理请单独catch处理
-            throw new ApplicationException("验证的其他错误");
+            throw new ApplicationException("验证的其他错误", e);
         }
         return Response.successResposne().setDes("login success");
     }
 
-    @GetMapping(value = "/index")
-    public String index() {
-        return "登录成功";
-    }
 
     //登出
     @GetMapping(value = "/logout")
@@ -65,12 +56,17 @@ public class LoginController {
         return "logout successful";
     }
 
-    //错误页面展示
-    @RequestMapping(value = "/error", method = RequestMethod.POST)
-    public String error() {
-        return "用户未授权!";
+    @GetMapping(value = "/405")
+    public Response index() {
+        return new Response().setDes("用户未登录").setCode(405);
     }
 
+    //错误页面展示
+    @GetMapping(value = "/403")
+    public Response error() {
+        System.out.println("===========/403=========");
+        return new Response().setDes("用户未授权").setCode(403);
+    }
 
     //注解的使用
     @GetMapping(value = "/sessionTime")

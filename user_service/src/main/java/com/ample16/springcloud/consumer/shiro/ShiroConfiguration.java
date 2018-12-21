@@ -50,17 +50,17 @@ public class ShiroConfiguration {
         map.put("/swagger-ui.html/**", "anon");
         map.put("/v2/api-docs", "anon");
         map.put("/swagger-resources/**", "anon");
-        map.put("/login", "anon");
         map.put("/user/register", "anon");
+        map.put("/login", "anon");
         map.put("/logout", "anon");
         //对所有用户认证,所有的url都需要经过验证器
         map.put("/**", "authc");
-        //未登录的时候跳转
-//        shiroFilterFactoryBean.setLoginUrl("/login");
+        //未登录的访问
+        shiroFilterFactoryBean.setLoginUrl("/405");
         //登录成功后访问的页面
-//        shiroFilterFactoryBean.setSuccessUrl("/index");
-        //错误页面，没有权限的时候跳转
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+        //shiroFilterFactoryBean.setSuccessUrl("/index");
+        //错误页面，没有权限的时候访问，貌似没有起到作用，待研究20181221
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }
