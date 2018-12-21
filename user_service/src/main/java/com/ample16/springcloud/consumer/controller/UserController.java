@@ -1,6 +1,7 @@
 package com.ample16.springcloud.consumer.controller;
 
 import com.ample16.springcloud.consumer.common.Response;
+import com.ample16.springcloud.consumer.common.req.RegisterReq;
 import com.ample16.springcloud.consumer.dao.UserDao;
 import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.UserService;
@@ -18,6 +19,17 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    /*注册账号/密码:root/admin*/
+    @PostMapping("/register")
+    public Response register(@RequestBody RegisterReq registerReq) {
+        User user = new User()
+                .setName(registerReq.getName())
+                .setPassword(registerReq.getPassword());
+        userService.register(user);
+        return Response.successResposne();
+    }
+
 
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "用户保存或更新")

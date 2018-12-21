@@ -10,6 +10,7 @@ public class User {
     private Long id;
     private String name;
     private String password;
+    private String salt;
     @ManyToMany
     public List<Role> roles;
     @Transient
@@ -66,6 +67,16 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
                 '}';
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public User setSalt(String salt) {
+        this.salt = salt;
+        return this;
     }
 }

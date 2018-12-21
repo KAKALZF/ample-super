@@ -1,7 +1,6 @@
 package com.ample16.springcloud.consumer.controller;
 
-import com.ample16.springcloud.consumer.common.LoginReq;
-import com.ample16.springcloud.consumer.entity.User;
+import com.ample16.springcloud.consumer.common.req.LoginReq;
 import com.ample16.springcloud.consumer.service.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -9,8 +8,6 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 public class LoginController {

@@ -12,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //实现AuthorizingRealm接口用户用户认证
@@ -30,15 +31,16 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         //获取用户信息
         String name = authenticationToken.getPrincipal().toString();
+        String password = authenticationToken.getCredentials().toString();
         User user = loginService.findByName(name);
         if (user == null) {
-            //这里返回后会报出对应异常
-            return null;
-        } else {
-            //这里验证authenticationToken和simpleAuthenticationInfo的信息
-            SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, user.getPassword().toString(), getName());
-            return simpleAuthenticationInfo;
+            throw new AuthenticationException("用户名/密码错误");
         }
+        //这里的账密码为加密后的密码
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getName(), user.getPassword(), this.getName());
+        //给RetryLimitHashedCredentialsMatcher提供盐
+        simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
+        return simpleAuthenticationInfo;
     }
 
 

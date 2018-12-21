@@ -1,6 +1,7 @@
 package com.ample16.springcloud.consumer.shiro;
 
 
+import com.ample16.springcloud.consumer.shiro.credentials.RetryLimitHashedCredentialsMatcher;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
@@ -23,7 +24,18 @@ public class ShiroConfiguration {
     @Bean
     public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
+        myShiroRealm.setCredentialsMatcher(this.retryLimitHashedCredentialsMatcher());
         return myShiroRealm;
+    }
+
+    //密码校验和登录次数限制
+    @Bean
+    public RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher() {
+        RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher = new                 RetryLimitHashedCredentialsMatcher();
+        retryLimitHashedCredentialsMatcher.setHashAlgorithmName("md5");
+        retryLimitHashedCredentialsMatcher.setHashIterations(2);
+        retryLimitHashedCredentialsMatcher.isStoredCredentialsHexEncoded();
+        return retryLimitHashedCredentialsMatcher;
     }
 
     //权限管理，配置主要是Realm的管理认证
@@ -34,52 +46,7 @@ public class ShiroConfiguration {
         return securityManager;
     }
 
-  /*  *//**
-     * 会话调度验证器
-     * 全局的会话信息检测扫描信息间隔30分钟
-     *
-     * @return
-     *//*
-    @Bean
-    public QuartzSessionValidationScheduler sessionValidationScheduler() {
-        QuartzSessionValidationScheduler sessionValidationScheduler = new QuartzSessionValidationScheduler();
-        sessionValidationScheduler.setSessionValidationInterval(1440000);
-        return sessionValidationScheduler;
-    }
 
-    *//**
-     * 会话DAO
-     *
-     * @return
-     *//*
-    @Bean
-    public EnterpriseCacheSessionDAO sessionDAO(ActiveSessionsCache activeSessionsCache) {
-        EnterpriseCacheSessionDAO sessionDAO = new EnterpriseCacheSessionDAO();
-        sessionDAO.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
-        sessionDAO.setActiveSessionsCache(activeSessionsCache);
-        return sessionDAO;
-    }
-    *//**
-     * 会话管理器
-     * 全局的会话信息设置成12小时,sessionValidationSchedulerEnabled参数就是是否开启扫描
-     *
-     * @param sessionValidationScheduler
-     * @param sessionDAO
-     * @return
-     *//*
-    @Bean
-    public WebSessionManager webSessionManager(QuartzSessionValidationScheduler sessionValidationScheduler,
-                                               SessionDAO sessionDAO) {
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        sessionManager.setGlobalSessionTimeout(43200000);
-        sessionManager.setDeleteInvalidSessions(true);
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionValidationScheduler.setSessionManager(sessionManager);
-        sessionManager.setSessionValidationScheduler(sessionValidationScheduler);
-        sessionManager.setSessionDAO(sessionDAO);
-        return sessionManager;
-    }
-*/
     //Filter工厂，设置对应的过滤条件和跳转条件
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
@@ -91,6 +58,7 @@ public class ShiroConfiguration {
         map.put("/v2/api-docs", "anon");
         map.put("/swagger-resources/**", "anon");
         map.put("/login", "anon");
+        map.put("/user/register", "anon");
         map.put("/logout", "anon");
         //对所有用户认证,所有的url都需要经过验证器
         map.put("/**", "authc");
