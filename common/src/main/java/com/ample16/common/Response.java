@@ -1,4 +1,4 @@
-package com.ample16.springcloud.consumer.common;
+package com.ample16.common;
 
 public class Response<T> {
     public String des;

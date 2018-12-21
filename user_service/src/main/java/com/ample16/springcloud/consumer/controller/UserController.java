@@ -1,8 +1,7 @@
 package com.ample16.springcloud.consumer.controller;
 
-import com.ample16.springcloud.consumer.common.Response;
-import com.ample16.springcloud.consumer.common.req.RegisterReq;
-import com.ample16.springcloud.consumer.dao.UserDao;
+import com.ample16.common.Response;
+import com.ample16.common.req.user.RegisterReq;
 import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.UserService;
 import com.ample16.springcloud.consumer.service.serviceimpl.RequiredPermission;

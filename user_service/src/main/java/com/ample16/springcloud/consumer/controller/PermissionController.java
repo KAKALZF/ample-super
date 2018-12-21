@@ -1,11 +1,9 @@
 package com.ample16.springcloud.consumer.controller;
 
-import com.ample16.springcloud.consumer.common.Response;
+import com.ample16.common.Response;
 import com.ample16.springcloud.consumer.entity.Permission;
-import com.ample16.springcloud.consumer.entity.Role;
 import com.ample16.springcloud.consumer.service.PermissionService;
 import com.ample16.springcloud.consumer.service.serviceimpl.RequiredPermission;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

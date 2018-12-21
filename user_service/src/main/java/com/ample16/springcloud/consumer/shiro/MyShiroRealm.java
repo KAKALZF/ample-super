@@ -1,5 +1,6 @@
 package com.ample16.springcloud.consumer.shiro;
 
+import com.ample16.common.exception.ApplicationException;
 import com.ample16.springcloud.consumer.entity.Permission;
 import com.ample16.springcloud.consumer.entity.Role;
 import com.ample16.springcloud.consumer.entity.User;
@@ -34,7 +35,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String password = authenticationToken.getCredentials().toString();
         User user = loginService.findByName(name);
         if (user == null) {
-            throw new AuthenticationException("用户名/密码错误");
+            throw new ApplicationException("用户名/密码错误");
         }
         //这里的账密码为加密后的密码
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getName(), user.getPassword(), this.getName());

@@ -1,4 +1,4 @@
-package com.ample16.springcloud.consumer.common.req;
+package com.ample16.common.req.user;
 
 public class LoginReq {
     private String name;

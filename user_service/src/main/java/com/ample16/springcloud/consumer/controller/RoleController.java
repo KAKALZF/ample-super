@@ -1,8 +1,7 @@
 package com.ample16.springcloud.consumer.controller;
 
-import com.ample16.springcloud.consumer.common.Response;
+import com.ample16.common.Response;
 import com.ample16.springcloud.consumer.entity.Role;
-import com.ample16.springcloud.consumer.entity.User;
 import com.ample16.springcloud.consumer.service.RoleService;
 import com.ample16.springcloud.consumer.service.serviceimpl.RequiredPermission;
 import io.swagger.annotations.ApiOperation;

@@ -52,5 +52,10 @@
 			<version>2.6.6</version>
 		</dependency>
 		<!--shiro end-->
+        <dependency>
+			<groupId>com.ample16.springboot</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 </project>

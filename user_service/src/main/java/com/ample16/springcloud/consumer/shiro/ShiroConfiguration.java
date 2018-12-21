@@ -2,15 +2,9 @@ package com.ample16.springcloud.consumer.shiro;
 
 
 import com.ample16.springcloud.consumer.shiro.credentials.RetryLimitHashedCredentialsMatcher;
-import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
-import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
-import org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.apache.shiro.web.session.mgt.WebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,7 +25,7 @@ public class ShiroConfiguration {
     //密码校验和登录次数限制
     @Bean
     public RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher() {
-        RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher = new                 RetryLimitHashedCredentialsMatcher();
+        RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher = new RetryLimitHashedCredentialsMatcher();
         retryLimitHashedCredentialsMatcher.setHashAlgorithmName("md5");
         retryLimitHashedCredentialsMatcher.setHashIterations(2);
         retryLimitHashedCredentialsMatcher.isStoredCredentialsHexEncoded();
@@ -45,7 +39,6 @@ public class ShiroConfiguration {
         securityManager.setRealm(myShiroRealm());
         return securityManager;
     }
-
 
     //Filter工厂，设置对应的过滤条件和跳转条件
     @Bean
@@ -63,11 +56,11 @@ public class ShiroConfiguration {
         //对所有用户认证,所有的url都需要经过验证器
         map.put("/**", "authc");
         //未登录的时候跳转
-        shiroFilterFactoryBean.setLoginUrl("/login");
+//        shiroFilterFactoryBean.setLoginUrl("/login");
         //登录成功后访问的页面
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+//        shiroFilterFactoryBean.setSuccessUrl("/index");
         //错误页面，没有权限的时候跳转
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }
