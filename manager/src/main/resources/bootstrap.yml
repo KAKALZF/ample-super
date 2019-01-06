@@ -1,0 +1,30 @@
+debug: false
+spring:
+  application:
+    name: manager-service
+  cloud:
+    config:
+      enabled: true
+      discovery:
+        enabled: true
+        service-id: CONFIG #1
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://39.108.239.32:3306/ample_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    username: root
+#    password: admin
+#    type: com.alibaba.druid.pool.DruidDataSource
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+server:
+  port: 8084
+eureka:
+  instance:
+    non-secure-port: ${server.port:8084}
+  client:
+    service-url:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
+
+
