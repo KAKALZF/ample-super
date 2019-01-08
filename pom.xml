@@ -16,6 +16,7 @@
         <module>user_service</module>
         <module>common</module>
         <module>manager</module>
+        <module>app_service</module>
     </modules>
     <!-- 使用最新的spring-boot版本 -->
     <!--properties-->
@@ -53,7 +54,7 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
-            <!--spring user-->
+            <!--spring app-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -61,7 +62,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--spring user end-->
+            <!--spring app end-->
             <!--spring boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
