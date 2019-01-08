@@ -6,10 +6,13 @@ import com.ample16.common.entity.User;
 import com.ample16.springcloud.app.service.UserService;
 import com.ample16.springcloud.app.service.serviceimpl.RequiredPermission;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
 
 @RestController
 @RequestMapping("/user")
@@ -57,6 +60,14 @@ public class UserController {
     @GetMapping("/findByName")
     public Response<User> findByName(String name) {
         System.out.println("==========findByName===========");
+        User user = userService.findByName(name);
+        return Response.successResposne().setData(user);
+    }
+
+    @GetMapping("/userDetail")
+    public Response<User> userDetail() {
+        org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
+        String  name = (String)subject.getPrincipal();
         User user = userService.findByName(name);
         return Response.successResposne().setData(user);
     }

@@ -19,7 +19,7 @@ spring:
     hibernate:
       ddl-auto: update
 server:
-  port: 8083
+  port: 8084
 eureka:
   instance:
     non-secure-port: ${server.port:8083}

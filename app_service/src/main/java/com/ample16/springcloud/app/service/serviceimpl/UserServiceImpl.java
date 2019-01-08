@@ -5,6 +5,7 @@ import com.ample16.springcloud.app.dao.UserDao;
 import com.ample16.common.entity.Role;
 import com.ample16.common.entity.User;
 import com.ample16.springcloud.app.service.UserService;
+import com.ample16.springcloud.app.shiro.util.PasswordHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +35,11 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return userDao.findAll();
     }
+
     /*用户注册，创建用户*/
     @Override
     public void register(User user) {
-//        PasswordHelper.encryptPassword(app);
+        PasswordHelper.encryptPassword(user);
         userDao.save(user);
     }
 
